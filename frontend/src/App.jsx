@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import "./App.css"; // Import the CSS file
 
-const socket = io("http://localhost:5000");
+const socket = io("https://chat-app-20q9.onrender.com");
 
 function App() {
 	const [messages, setMessages] = useState([]);
@@ -11,7 +11,7 @@ function App() {
 	const [username, setUsername] = useState("");
 
 	useEffect(() => {
-		axios.get("http://localhost:5000/messages").then((response) => {
+		axios.get("https://chat-app-20q9.onrender.com").then((response) => {
 			setMessages(response.data);
 		});
 
