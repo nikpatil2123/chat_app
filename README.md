@@ -65,7 +65,11 @@ npm run dev
 ```
 ## 📷 Screenshots
 ![file_2025-03-09_10 49 22](https://github.com/user-attachments/assets/93a976d1-60e7-4c99-890d-b3350ee3fdd1)
-https://github.com/user-attachments/assets/2ec1370f-9ff9-45b0-a672-ce3a77f187aa
+
+
+
+
+
 
 
 
