@@ -1,89 +1,201 @@
 /* General Styling */
 body {
-	font-family: Arial, sans-serif;
-	background: linear-gradient(to right, #6a11cb, #2575fc);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
+	font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+	background-color: #dadbd3;
 	margin: 0;
+	padding: 0;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
 }
 
 /* Chat Container */
 .chat-container {
-	width: 400px;
-	background: #fff;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-	text-align: center;
+	width: 100%;
+	height: 100vh;
+	background: #f0f0f0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
 }
 
-/* Title */
+/* Title/Header */
 h2 {
-	margin-bottom: 15px;
-	color: #333;
+	margin: 0;
+	padding: 16px 20px;
+	color: white;
+	font-size: 16px;
+	text-align: left;
+	font-weight: 500;
+	background-color: #075e54;
+	display: flex;
+	align-items: center;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+	z-index: 10;
 }
 
-/* Username Input */
+h2::before {
+	content: "🔒";
+	margin-right: 10px;
+	font-size: 20px;
+}
+
+/* Username Input - WhatsApp Style */
 .username-input {
-	width: 90%;
-	padding: 10px;
-	margin-bottom: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
+	width: calc(100% - 40px);
+	padding: 10px 20px;
+	margin: 0;
+	border: none;
+	border-bottom: 1px solid #128c7e;
+	border-radius: 0;
 	outline: none;
+	font-size: 15px;
+	background-color: #f0f0f0;
+}
+
+.username-input:focus {
+	border-bottom: 2px solid #25d366;
 }
 
 /* Chat Box */
 .chat-box {
-	border: 1px solid #ccc;
-	height: 300px;
+	flex: 1;
+	padding: 20px;
 	overflow-y: auto;
-	padding: 10px;
-	border-radius: 5px;
-	background: #f9f9f9;
-	margin-bottom: 10px;
+	background-image: url('https://web.whatsapp.com/img/bg-chat-tile-dark_a4be512e7195b6b733d9110b408f075d.png');
+	background-color: #e5ddd5;
+	background-size: contain;
+	display: flex;
+	flex-direction: column;
+}
+
+.chat-box::-webkit-scrollbar {
+	width: 6px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
 }
 
 /* Messages */
 .message {
-	background: #e3f2fd;
-	padding: 8px;
-	margin: 5px 0;
-	border-radius: 5px;
+	max-width: 60%;
+	padding: 8px 12px 18px 12px;
+	/* Extra padding at bottom for timestamp */
+	margin: 3px 0;
+	border-radius: 7.5px;
+	position: relative;
 	text-align: left;
+	font-size: 14px;
+	line-height: 1.4;
+	box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+	word-wrap: break-word;
+}
+
+/* Sent messages (align right) */
+.message:nth-child(even) {
+	align-self: flex-end;
+	background-color: #dcf8c6;
+	border-top-right-radius: 0;
+}
+
+/* Received messages (align left) */
+.message:nth-child(odd) {
+	align-self: flex-start;
+	background-color: white;
+	border-top-left-radius: 0;
+}
+
+/* Sender name */
+.message b {
+	color: #075e54;
+	font-size: 12px;
+	font-weight: 500;
+	display: block;
+	margin-bottom: 2px;
+}
+
+/* Message timestamp */
+.message-time {
+	position: absolute;
+	bottom: 3px;
+	right: 8px;
+	font-size: 11px;
+	color: #8c8c8c;
 }
 
 /* Input Container */
 .input-container {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
+	padding: 10px 16px;
+	background-color: #f0f0f0;
+	position: relative;
+	border-top: 1px solid #e0e0e0;
 }
 
 /* Message Input */
 .message-input {
 	flex: 1;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
+	padding: 12px 16px;
+	border: none;
+	border-radius: 20px;
 	outline: none;
-	margin-right: 10px;
+	background-color: white;
+	font-size: 15px;
 }
 
 /* Send Button */
 .send-button {
-	padding: 10px 15px;
-	background: #2575fc;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #128c7e;
 	color: white;
 	border: none;
-	border-radius: 5px;
+	margin-left: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	cursor: pointer;
 	font-weight: bold;
-	transition: 0.3s ease;
+	font-size: 18px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .send-button:hover {
-	background: #1e5bcc;
+	background-color: #075e54;
+}
+
+/* For WhatsApp-like button appearance */
+.send-button::after {
+	content: "➤";
+	font-size: 16px;
+	transform: rotate(90deg);
+}
+
+/* Responsive adjustments for different screen sizes */
+@media (max-width: 768px) {
+	.message {
+		max-width: 75%;
+	}
+}
+
+@media (max-width: 480px) {
+	.message {
+		max-width: 85%;
+	}
+
+	.username-input {
+		font-size: 14px;
+	}
+
+	.message-input {
+		padding: 10px 12px;
+	}
 }

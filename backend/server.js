@@ -14,19 +14,17 @@ const io = new Server(server, {
 	},
 });
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
-mongoose.connect("mongodb://localhost:27017/secureChat", {
+// mongoose.connect("mongodb://localhost:27017/secureChat",{
+mongoose.connect("mongodb://user_42z5psufy:p42z5psufy@ocdb.app:5050/db_42z5psufy", {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
 
-// AES Encryption Helpers
-const AES_KEY = "12345678901234567890123456789012"; // 32-byte key for AES-256
-const AES_IV = "1234567890123456"; // 16-byte IV
+const AES_KEY = "12345678901234567890123456789012";
+const AES_IV = "1234567890123456";
 
 function encryptAES(text) {
 	const cipher = crypto.createCipheriv("aes-256-cbc", AES_KEY, AES_IV);
@@ -42,7 +40,6 @@ function decryptAES(encryptedText) {
 	return decrypted;
 }
 
-// Socket.IO Chat Logic
 io.on("connection", (socket) => {
 	console.log("User connected:", socket.id);
 
@@ -50,9 +47,7 @@ io.on("connection", (socket) => {
 		const encryptedMessage = encryptAES(message);
 		const newMessage = new Message({ sender, message: encryptedMessage });
 		await newMessage.save();
-
-		// Decrypt before sending to frontend
-		io.emit("receiveMessage", { sender, message: message }); // Sending decrypted message
+		io.emit("receiveMessage", { sender, message: message });
 	});
 
 	socket.on("disconnect", () => {
@@ -60,16 +55,14 @@ io.on("connection", (socket) => {
 	});
 });
 
-// Routes
 app.get("/messages", async (req, res) => {
 	const messages = await Message.find();
 	res.json(
 		messages.map((msg) => ({
 			sender: msg.sender,
-			message: decryptAES(msg.message), // Send decrypted messages to frontend
+			message: decryptAES(msg.message),
 		}))
 	);
 });
 
-// Start Server
 server.listen(5000, () => console.log("Server running on port 5000"));
